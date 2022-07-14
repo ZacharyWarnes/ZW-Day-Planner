@@ -1,52 +1,72 @@
-console.log('hello');
 
-// Here I will define variables to use for my code 
-
-//DECLARE Current Hour
-
-var currentHour = []
-    
-
+//I am declaring the current hour for comparative use later 
+var currentHour = moment().hour();
+  console.log(currentHour);
 
 //Here is the code for displaying the current date at the top of the page
 var today = moment().format("dddd MMMM Do");
 $("#currentDay").text(today);
 
-document.getElementById("currentDay").innerHTML = today;
-
 //DECLARE Time Entries Container Element
 
-//Here is the code for timeblocks
-//Render a block for each hour of the day 
 
-for (var i =9; i<=17; i++) {
-    var key = "hour-" + i
-    // Attempt to get the saved data for the hour of the loop
-    var data = "asdf";
+for (var i = 9; i <= 17; i++) {
+  var key = "hour-" + i;
+  // Attempt to get the saved data for the hour of the loop
+  var data = "";
 
-    // Compare i to current hour to determine of this hour is in the past, present, or future
+// Set a variable to create 9AM-5PM daily schedule converted from a 24-hour clock
+var realTime;
 
-    //Need to designate if entered time is past, present, or future
+  if (i < 12 ){
+    console.log("AM")
+    realTime = i + "AM";
+  }
 
-    var template = `
-    <div class="row">
-    <div>
-      ${i}
+  else if (i==12){
+    realTime = i + "PM";
+  }
+  
+  else {
+    console.log ("PM")
+    realTime = (i -12) + "PM";
+  }
+  // Compare i to current hour to determine of this hour is in the past, present, or future
+var colorClass;
+
+  if (i < currentHour) {
+    colorClass = "past";
+  }
+
+  else if (i == currentHour){
+    colorClass = "present";
+  }
+
+  if (i > currentHour) {
+    colorClass = "future";
+  }
+
+  // Template for time blocks including dynamic Jquery inputs
+  var template = `
+    <div class="row time-block">
+    <div class = "hour col">
+      ${realTime}
     </div>
-    <div>
-      <textarea>${data}</textarea>
-    </div>
-    <div>
-      <button data-hour="${i}">Save</button>
-    </div>
+      <textarea class= "description col-10 ${colorClass}">${data}</textarea>
+      <button class = "saveBtn col" data-hour="${i}">Save</button>
+    
 </div>
 `;
 
-  //Append the html to the page 
+$("#timeEntries").append(template);
+
+
 
 }
 
+//localStorage.getItem
+
 //Each timeblock must display a different color indicating: past, present, future
 
-//Time blocks must have a form that stores local information so that information 
+//Time blocks must have a form that stores local information so that information
 //remains when the page is refreshed
