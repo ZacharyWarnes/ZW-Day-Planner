@@ -7,14 +7,14 @@ var currentHour = moment().hour();
 var today = moment().format("dddd MMMM Do");
 $("#currentDay").text(today);
 
-//DECLARE Time Entries Container Element
+//Declaring a Time Entries Container variabel
+var timeEntriesEl = $(".description");
 
+//Declaring a save button variable
+var button = $(".saveBtn");
 
 for (var i = 9; i <= 17; i++) {
-  var key = "hour-" + i;
-  // Attempt to get the saved data for the hour of the loop
-  var data = "";
-
+  
 // Set a variable to create 9AM-5PM daily schedule converted from a 24-hour clock
 var realTime;
 
@@ -52,7 +52,7 @@ var colorClass;
     <div class = "hour col">
       ${realTime}
     </div>
-      <textarea class= "description col-10 ${colorClass}">${data}</textarea>
+      <textarea class= "description col-10 ${colorClass}"></textarea>
       <button class = "saveBtn col" data-hour="${i}">Save</button>
     
 </div>
@@ -64,9 +64,24 @@ $("#timeEntries").append(template);
 
 }
 
+//This Code Saves the Time Entry blocks to local storage
+
+button.on("click", function(event) {
+ var savedTimeEntry = timeEntriesEl.textContent;
+ console.log(savedTimeEntry);
+ localStorage.setItem('key', JSON.stringify(savedTimeEntry));
+ timeEntriesEl();
+ realTime();
+});
+
+function getValue() {
+  return localStorage.getItem('timeEntriesEl');
+  return localStorage.getItem('realTime');
+}
+console.log(getValue());
+
 //localStorage.getItem
 
-//Each timeblock must display a different color indicating: past, present, future
 
 //Time blocks must have a form that stores local information so that information
 //remains when the page is refreshed
