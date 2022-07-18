@@ -16,4 +16,4 @@
 
 * From this exercise I learned more about the functionality of Javascript and how information relevent to the application or webpage can be stored for later use. This storage method was probably the most significant thing I learned while working on this. I also learned how to use Jquery to target IDs and add/remove information dynamically depending on the users input. 
 
-current page can be found at: 
+current page can be found at: https://zacharywarnes.github.io/ZW-Day-Planner/
