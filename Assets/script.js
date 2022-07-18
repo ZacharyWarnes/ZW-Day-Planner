@@ -6,11 +6,7 @@ var currentHour = moment().hour();
 var today = moment().format("dddd MMMM Do");
 $("#currentDay").text(today);
 
-//Declaring a Time Entries Container variabel
-var timeEntriesEl = $(".description");
-
-//Declaring a save button variable
-
+//This For Loop defines the relationship between the current hour and past/present as well as the data being stored in the timeblocks
 for (var i = 9; i <= 17; i++) {
 
  
@@ -68,7 +64,9 @@ $("#timeEntries").append(template);
 
 var button = $(".saveBtn");
 console.log(button);
-//This Code Saves the Time Entry blocks to local storage
+
+//This Code Saves the Time Entry blocks to local storage and calls them back so that 
+//the results stay even when the page is refreshed.
 
 button.on("click", function(event) {
 var hourKey = event.target.dataset.hour;
@@ -76,10 +74,3 @@ var textEntry = event.target.previousSibling.previousElementSibling.value;
 console.log(hourKey,textEntry);
 localStorage.setItem(hourKey,JSON.stringify(textEntry));
 });
-
-
-//localStorage.getItem
-
-
-//Time blocks must have a form that stores local information so that information
-//remains when the page is refreshed
